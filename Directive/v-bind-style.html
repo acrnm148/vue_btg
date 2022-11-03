@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <!-- cdn 방식으로 vue를 가져오는것 -->
+
+</head>
+<body>
+    <div id="app">
+        <div :style="{color: myColor, backgroundColor:myBgColor}">개별 변수 style 지정 : camel</div>
+        <div :style="{'background-color':myBgColor}">개별 변수 style 지정 : kebab</div>
+        <div :style="myStyle">객체 지정</div>
+    </div>
+    <script>
+       
+        new Vue({ 
+            el: '#app',
+            data: function() {
+               return {
+                  myColor: 'blue',
+                  myBgColor: 'yellowgreen',
+                  myStyle: {color: 'blue', backgroundColor:'yellowgreen'}
+               }
+            },
+        });
+
+    </script>
+</body>
+</html>

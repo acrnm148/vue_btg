@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <!-- cdn 방식으로 vue를 가져오는것 -->
+</head>
+<body>
+    <div id="app1">{{ text }}</div>
+    <div id="app2">{{ text }}</div>
+
+    <script>
+        // Vue 객체를 만드는 코드, 파라미터로 설정을 가진 객체를 전달
+        const vue = new Vue({ 
+            // dom의 누구와 연결 , css 선택자(el: querySelector역할)
+            el: '#app1',
+            // data : 사용되는 javascript 변수나 객체들
+            data: function() {
+                return {
+                    text: 'Hello, Vue!'
+                }
+            }
+            // method : data를 이용해서 필요한 기능을 수행
+        });
+
+        const vue2 = new Vue({ 
+            // dom의 누구와 연결 , css 선택자(el: querySelector역할)
+            el: '#app2',
+            // data : 사용되는 javascript 변수나 객체들
+            data: function() {
+                return {
+                    text: 'Hello, Vue2!'
+                }
+            }
+            // method : data를 이용해서 필요한 기능을 수행
+        });
+    </script>
+</body>
+</html>

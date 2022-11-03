@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <!-- cdn 방식으로 vue를 가져오는것 -->
+</head>
+<body>
+    <div id="app">
+       <div id="bindId">{{ textId }}</div>
+       <div v-bind:id="bindId">{{ textId }}</div>
+
+       <a v-bind:href="bindUrl">{{ textUrl }}</a>
+       <br>
+       <div :data-boardId="boardId">{{boardId}} 게시글</div>
+        <br>
+        <img :src="bindSrc" alt="noprofile">
+        <img :src="bindSubSrc" alt="noimg">
+        <br>
+        <input type="text" :value="textVal"> <!-- attribute앞에 : 붙이고 vue객체 안에 있는 변수 넣으면 그 값을 쓸 수 있음 -->
+    </div>
+    <script>
+       
+        new Vue({ 
+            el: '#app',
+            data: function() {
+               return {
+                    textId: 'v-bind-Id',
+                    bindId: '12345',
+                    textUrl: 'google.com',
+                    bindUrl: 'https://google.com',
+
+                    boardId: '6789',
+
+                    textSrc: 'lee',
+                    bindSrc: 'noProfile.png',
+                    bindSubSrc: './img/no_img.png',
+
+                    textVal: '안녕!'
+               }
+            },
+        });
+
+    </script>
+</body>
+</html>

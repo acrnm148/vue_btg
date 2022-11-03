@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <!-- cdn 방식으로 vue를 가져오는것 -->
+</head>
+<body>
+    <div id="app">
+        <!-- attribute처럼보이는데 vue에서 제공하는 지시어 -> 디렉티브 -->
+        <div v-if="flagIf">v-if 보이나요?</div>
+        <div v-show="flagShow">v-show 보이나요?</div>
+        <br>
+        <ul>
+            <li v-for="(item, index) in arrayItems" :key="index">{{ item }}</li>
+        </ul>
+        <hr>
+        <ul>
+            <li v-for="(item, index) in orderedItems" :key="index">
+                {{ item.name }} : {{ item.price }}</li>
+        </ul>
+        <!-- v-for로 반복적인 렌더링(rendering)을 할 때, v-for와 v-if를 동시에 사용X 권고.-->
+        <!-- computed를 활용 -->
+
+        <!-- <div v-if="isLogin">로그아웃 / {{userName}}</div><div v-if="!isLogin">로그인</div> -->
+    </div>
+    <script>
+        let studyList = ['java', 'spring', 'vue']; //문자열 배열
+        let objectList= [
+            {name:'java', price:'2000', order:1},
+            {name:'spring', price:'3000', order:2},
+            {name:'vue', price:'4000', order:3},
+            {name:'boot', price:'5000', order:4},
+        ]; //객체 배열
+        const vue = new Vue({ 
+            el: '#app',
+            data: function() {
+                return {
+                    flagIf: false, //v-if
+                    flagShow: false, //v-for
+                    arrayItems: studyList, //for
+                    objectArrayItems: objectList, //for
+                }
+            },
+            computed: { //함수 모음
+                filteredItems: function() { //objectArryItems를 정제(+조건)
+                    return this.objectArrayItems.filter(el => el.price > 3000)
+                },
+                orderedItems: function() {
+                    return this.filteredItems.filter(el=>el.order > 3)
+                }
+            }
+        });
+    </script>
+</body>
+</html>
