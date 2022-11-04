@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <!-- cdn 방식으로 vue를 가져오는것 -->
+</head>
+<body>
+    <div id="app">
+       <h4>select</h4>
+       <!-- selectbox의 v-model은 현재 선택한 옵션 -->
+       <select name="" id="" v-model="selectValue" @change="changeSelect">
+            <option v-for="(option, index) in selectOptionList" :key="index" :value="option.value">{{option.text}}</option>
+       </select>
+
+       <h4>Table</h4>
+       <table>
+        <thead>
+            <th>번호</th>
+            <th>제목</th>
+            <th>작성자</th>
+        </thead>
+        <tbody>
+            <tr v-for="(row, index) in itemList" :key="index" @click="clickTr(row)" style="cursor: pointer;">
+                <td>{{row.no}}</td>
+                <td>{{row.title}}</td>
+                <td>{{row.writer}}</td>
+            </tr>
+        </tbody>
+       </table>
+    </div>
+    <script>
+
+        let itemList= [
+            {no:1, title:'안녕하세요',writer:'강수나'},
+            {no:2, title:'공부하세요',writer:'강수다'},
+            {no:3, title:'밥먹고하세요',writer:'강수라'},
+        ]
+       const vue = new Vue({ 
+            el: '#app',
+            data: function() {
+               return {
+                  selectOptionList: [
+                    {text:'Camping', value: 'C'},
+                    {text:'Drawing', value: 'D'},
+                    {text:'Singing', value: 'S'},
+                  ],
+                  selectValue: 'D',
+                  itemList : itemList,
+               }
+            },
+            methods: {
+                changeSelect() {
+                    alert(this.selectValue);
+                },
+                clickTr(row) {
+                    alert(row.no+" "+row.title+" "+row.writer);
+                }
+            }
+           
+        });
+    </script>
+</body>
+</html>

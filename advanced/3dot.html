@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        /// Rest Operator ( 나머지 항목을 받아준다. )
+        // {
+        //     let obj = {a: 1, b: 2, c: 3}
+        //     let obj2 = obj;
+        //     console.log(obj2);
+        //     obj.b = 4;
+        //     console.log(obj2);
+        // }
+
+        // {
+        //     let obj = {a: 1, b: 2, c: 3}
+        //     let {...obj2} = obj; // 새로운 객체 생성 => 멤버가 복사가 됨. 서로 다른 객체임
+        //     console.log(obj2);
+        //     obj.b = 4;
+        //     console.log(obj2);
+        // }
+
+        // {
+        //     let obj = {a: 1, b: 2, c: 3, d:'4'}
+        //     let {b, c, ...obj2} = obj; // 새로운 객체 생성 => 멤버가 복사가 됨. 서로 다른 객체임 //property 명 이용
+        //     console.log(b,c,obj2);
+        // }
+
+        // {
+        //     let arr = ['a', 'b', 'c','d','e'];
+        //     let [c, d, ...arr2] = arr;
+        //     console.log(c, d, arr2);
+        // }
+        /// Spread Operator ( 묶여있는 항목을 펼친다. ) ...가 오른쪽
+    
+        // {
+        //     let s1 = {name:'홍길동', phone: '010-1111-1111', age:30 }
+        //     let s2 = {phone: '010-2222-2222', age:20 }
+        //     let s3 = {phone: '010-3333-3333'}
+
+        //     let s4 = { ...s1 } // 새로운 객체, 복사 //왼쪽에 오나 오른쪽에오나 같다
+
+        //     console.log(s4);
+        //     //s1.name="이길동";
+        //     console.log(s4);
+
+        //     let s5 = {...s1, ...s3} // 두 객체가 오면 덮어쓰기
+        //     console.log(s5);
+        // }
+
+        {
+            let nums = [1,2,3,4,5];
+            let nums2 = [3,4,5,6,7];
+            let nums3 = [...nums2, ...nums]; //두 배열이 앞에 것부터 합쳐진다. - 두 배열이 오면 합쳐짐
+            console.log(nums3);
+        }
+    </script>
+</body>
+</html>

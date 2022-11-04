@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <!-- cdn 방식으로 vue를 가져오는것 -->
+</head>
+<body>
+    <div id="app">
+        <input type="text" @keyup="keyHandler" 
+        @keyup.enter="enterKey" @keyup.page-down="pageDown" @keyup.delete="deleteKey">
+        <br>
+        <span>Key Code: {{ keycode }}</span>
+
+        <br>
+
+        <input type="text" @input="keyHangul=$event.target.value" 
+        @keyup.enter="hangul">
+        <br>
+        <span>Key Code: {{ keycode }}</span>
+    </div>
+    <script>
+       new Vue({ 
+            el: '#app',
+            data: function() {
+               return {
+                   keycode:0,
+                   keyHangul: ''
+               }
+            },
+            methods: {
+                keyHandler(e) { // keyHander: function(e) {}
+                    console.log(e.key);
+                    this.keycode = e.key; //실시간 갱신될 것
+                },
+                enterKey(e) {
+                    console.log("enter");
+                },
+                pageDown(e) {
+                    console.log("pageDown");
+                },
+                deleteKey(e) {
+                    console.log("deleteKey");
+                },
+                hangul() {
+                    console.log( this.keyHangul );
+                }
+            }
+        });
+    </script>
+</body>
+</html>

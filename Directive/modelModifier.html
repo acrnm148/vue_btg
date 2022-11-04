@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <!-- cdn 방식으로 vue를 가져오는것 -->
+</head>
+<body>
+    <div id="app">
+        <h4>Lazy</h4>
+        <!--lazy: 글자 한개 한개 변할때마다 X => 전체 입력이 끝나면 (loose focus) 양방향 바인딩-->
+        <!-- 전체 입력 끝나는 기준 : focus를 벗어났을 때 -->
+        <input type="text" v-model.lazy="lazyText"> {{lazyText}}
+
+        <h4>Number</h4>
+        <!-- 숫자만 입력 처리 -->
+        <input type="text" v-model.number="numberText"> {{numberText}}
+
+        <h4>Trim</h4>
+        <!-- 양쪽 끝의 whitespace를 지워줌 -->
+        <input type="text" v-model.trim="trimText"> {{'>>>'+trimText+'<<<'}}
+    </div>
+    <script>
+       const vue = new Vue({ 
+            el: '#app',
+            data: function() {
+               return {
+                  lazyText: '안녕',
+                  numberText:0,
+                  trimText: ''
+               }
+            },
+           
+        });
+    </script>
+</body>
+</html>
