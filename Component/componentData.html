@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <!-- cdn 방식으로 vue를 가져오는것 -->
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+</head>
+<body>
+    <div id="app">
+        <my-component1></my-component1>
+        <my-component2></my-component2>
+        <my-component3></my-component3>
+        <my-component4></my-component4>
+    </div>
+
+    <script>
+
+        const cmp1 = {
+            template: `<div>첫 번째 지역 컴포넌트 : {{data1}}</div>`,
+            data: function() {
+                return {
+                    data1: 100,
+                }
+            }
+        }
+
+        const cmp2 = {
+            template: `<div>두 번째 지역 컴포넌트 : {{data2}}</div>`, //{{data1}} 은 접근X
+            data: function() {
+                return {
+                    data2: 200,
+                    //data2: cmp1.data().data1,
+                }
+            }
+        }
+
+        // template에 해당하는 HTML을 body 안에 template tag를 이용해서 표현
+        new Vue({
+            el: '#app',
+            components: {
+                'my-component1' : cmp1,
+                'my-component2' : cmp2,
+                'my-component3' : {
+                    template: `<div>세 번째 지역 컴포넌트 : {{data3}}</div>`, //{{data1}} 은 접근X
+                    data: function() {
+                        return {
+                            data3: 300,
+                        }
+                    }
+                },
+                'my-component4' : {
+                    template: `<div>네 번째 지역 컴포넌트 : {{data4}}</div>`, //{{data1}} 은 접근X
+                    data: function() {
+                        return {
+                            data4: 500,
+                        }
+                    }
+                }
+            }
+        });
+    </script>
+</body>
+</html>

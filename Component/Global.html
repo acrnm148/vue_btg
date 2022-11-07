@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <!-- cdn 방식으로 vue를 가져오는것 -->
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+</head>
+<body>
+    <div class="app">
+        <!-- <global-component/> 열고 닫는 태그는 쓰지말고 항상 풀어서 써라 -->
+        <global-component></global-component>
+        <global-component></global-component>
+    </div>
+    <script>
+        Vue.component( //vue 인스턴스 밖에서 쓸 수 있는 컴포넌트
+            'global-component', //이름
+            {
+                template: `<div>전역 컴포넌트 입니다.</div>`
+            }
+        );
+
+        //Vue 객체 안에 component가 없다.
+        new Vue({
+            el: '.app'
+        });
+    </script>
+</body>
+</html>

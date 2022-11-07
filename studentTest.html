@@ -117,7 +117,7 @@
 					}catch(error){
 						console.log(error)
 					}
-				}, //등록완료, 새로고침 해야 바뀐걸 볼 수 있음
+				}, //등록완료
 				async updateStudent() {
 					let url = 'http://localhost:8080/students/' + this.student.studentId;
 
@@ -157,7 +157,7 @@
 					}
 				},
 				clear() {
-					this.student.studentId = '';
+					this.student.studentId = 0;
 					this.student.studentNm = '';
 					this.student.email = '';
 					this.student.phone = '';
