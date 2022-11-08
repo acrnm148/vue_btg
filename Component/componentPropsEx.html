@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <!-- cdn 방식으로 vue를 가져오는것 -->
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+</head>
+<body>
+    <!-- 제품(이름, 가격) 목록(캠핑)을 보여주는 Component를 만들고
+         할인행사를 진행하기 위해 할인율(0.2)을 부모가 가지고 있는 data로부터 받아서
+         최종적으로 제품 이름, 가격, 할인 가격을 보여주려고 한다. 
+        * 할인가격 = 원가격 - 원가격*할인율-->
+    <!-- 각 제품 앞에 addCart 버튼을 추가하여 장바구니 구현
+        장바구니는 parent 인 Vue Instance에 있다. child => parent로 addCart되는 product를 넘겨야 한다. -->
+    <div id="app">
+        <product-list v-bind:discount-rate="discountRateValue" v-on:call-parent="fromChild"></product-list> <!--부모로부터 받는 값-->
+        <hr>
+        <h4>Cart</h4>
+        <ul>
+            <li v-for="(product, index) in cart" :key="index">{{ product.name }} {{ product.price }}</li>
+        </ul>
+    </div>
+
+    <!-- 아래 테이블 tag의 내용을 가지는 html template을 작성 -->
+    
+    <template id="product-list">
+        <table>
+            <thead>
+                <th>제품명</th>
+                <th>가격</th>
+                <th>할인 가격</th>
+                <th>cart</th>
+            </thead>
+            <tbody>
+                <!-- 제품 수만큼 반복 v-for -->
+                <tr v-for="(row, index) in productList" :key="index">
+                    <td>{{row.name}}</td>
+                    <td>{{row.price}}</td>
+                    <td>{{row.price - row.price*discountRate}}}</td>
+                    <td><button @click="addCart(row, discountRate)">장바구니</button></td>
+                </tr>
+            </tbody>
+        </table>
+    </template>
+    
+
+    <script>
+         // backend에서 받은 자료
+         // component의 데이터 구성 소스
+        let productList = [
+            {name: 'Tent', price: '40000'},
+            {name: 'Tarp', price: '50000'},
+            {name: 'Table', price: '60000'},
+        ];
+        //자식
+        Vue.component(
+            'product-list', //global component
+            {
+                // props, template, data
+                // template은 html template
+                // data는 외부 변수에 저장 (서버로부터 받았다는 가정)
+                props:['discountRate'], //부모에서 받는 값
+                template: '#product-list',
+                data() {
+                    return {
+                        // productList: productList, //둘이 같을 경우 하나만 써도됨 (shorthand property)
+                        productList
+                    }
+                },
+                methods: {
+                    addCart (row, discountRate) {
+                        // console.log(row);
+                        // console.log(discountRate);
+                        this.$emit('call-parent', row, discountRate);
+                    }
+                }
+            }
+        );
+        //부모
+        new Vue({
+            el: '#app',
+            data() {
+                return {
+                    discountRateValue: 0.2,
+                    cart: []
+                }
+            },
+            methods: {
+                fromChild :function(product, discountRate) {
+                    console.log(product);
+                    console.log(discountRate);
+                    //제품 가격을 할인 가격으로 변경
+                    //아래의 코드는 동일 product객체의 가격을 변경하게 되므로 원본 product 객체의 값이 변경되어
+                    //문제 발생.
+                    let {...product2} = product; // ... : rest operator 역할로 객체 복사
+                    product2.price = product2.price - product2.price * discountRate;
+                    this.cart.push(product2); //값을 넣는다
+                }
+            }
+        });
+
+    </script>
+</body>
+</html>

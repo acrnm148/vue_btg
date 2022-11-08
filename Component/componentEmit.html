@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <!-- cdn 방식으로 vue를 가져오는것 -->
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+</head>
+<body>
+    <div id="app">
+        <!--child-component가 어떤 상황이 발생해서 자체적으로 처리하고 마무리 하지 않고
+            parent component에게 상황을 인지하고 전달하고자 할 경우에 상호 약속한 event를 발생하고 수신
+            약속한 event : call-parent-->
+            
+        <child-component v-on:call-parent="fromChild"></child-component>
+    </div>
+
+    <script>
+
+        //글로벌 컴포넌트
+        Vue.component('child-component', {
+            template: `<button v-on:click="eventBtnClick">click</button>`,
+            methods: {
+                eventBtnClick: function() {
+                    //alert(1);
+                    //call-parent 이벤트를 발생
+                    this.$emit('call-parent');
+                }
+            }
+        });
+        //부모
+        new Vue({
+            el: '#app',
+            methods: {
+                fromChild: function() {
+                    alert("from child is called!!!");
+                }
+            }
+        });
+
+    </script>
+</body>
+</html>
