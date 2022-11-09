@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <!-- cdn 방식으로 vue를 가져오는것 -->
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <script src="https://unpkg.com/vue-router@3.5.3/dist/vue-router.js"></script>
+</head>
+<body>
+    <div id="app">
+        <h4>Happy House🏡</h4>
+        <!--link, view-->
+        <ul>
+            <li><router-link to="/house">아파트별 검색</router-link></li>
+            <li><router-link to="/deal">동별 검색</router-link></li>
+            <li><router-link to="/myPage">My Page</router-link></li>
+            <li><router-link to="/search">주변 검색</router-link></li>
+            <li><router-link to="/notice">공지사항</router-link></li>
+            <li><router-link to="/community">커뮤니티</router-link></li>
+        </ul>
+        <div>
+            <router-view></router-view> <!-- 복수개 가능 -->
+        </div>
+       
+    </div>
+    <script>
+        
+        // javascript object
+        const HouseComponent = { template: '<div>아파트별 검색</div>' }
+        const DealComponent = { template: `<div>동별 검색</div>` }
+        const MyPageComponent = { template: `<div>My page</div>` }
+        const SearchComponent = { template: `<div>주변 검색</div>` }
+        const NoticeComponent = { template: `<div>공지사항</div>` }
+        const CommunityComponent = { template: `<div>커뮤니티</div>` }
+        
+        // javascript array
+        const routes = [ //얘가 라우트
+            {path: '/house', component: HouseComponent}, //main일때는 MainComponent
+            {path: '/deal', component: DealComponent},
+            {path: '/myPage', component: MyPageComponent},
+            {path: '/search', component: SearchComponent},
+            {path: '/notice', component: NoticeComponent},
+            {path: '/community', component: CommunityComponent},
+            //컴포넌트 자동으로 만들어줌
+        ]
+        
+        // VueRouter 객체 생성
+        const router = new VueRouter({ //얘가 라우트의 집합인 라우터
+            routes //shorthand property
+        }); 
+
+        new Vue({
+            el: '#app',
+            router //shorthand property
+        });
+
+    </script>
+</body>
+</html>

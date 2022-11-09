@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <!-- cdn 방식으로 vue를 가져오는것 -->
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <script src="https://unpkg.com/vue-router@3.5.3/dist/vue-router.js"></script>
+</head>
+<body>
+    <div id="app">
+        <h4>Vue Router</h4>
+        <!--link, view-->
+        <p>
+            <router-link to="/main">Main 컴포넌트</router-link>
+            <router-link to="/login">Login 컴포넌트</router-link>
+            <router-link to="/board">Board 컴포넌트</router-link>
+        </p>
+        <router-view></router-view> <!-- 복수개 가능 -->
+    </div>
+    <script>
+        
+        // javascript object
+        const MainComponent = { template: '<div>Main</div>' }
+        const LoginComponent = { template: `<div>Login</div>` }
+        const BoardComponent = { template: `<div>Board</div>` }
+        
+        // javascript array
+        const routes = [ //얘가 라우트
+            {path: '/main', component: MainComponent}, //main일때는 MainComponent
+            {path: '/login', component: LoginComponent},
+            {path: '/board', component: BoardComponent}
+            //컴포넌트 자동으로 만들어줌
+        ]
+        
+        // VueRouter 객체 생성
+        const router = new VueRouter({ //얘가 라우트의 집합인 라우터
+            routes //shorthand property
+        }); 
+
+        new Vue({
+            el: '#app',
+            router //shorthand property
+        });
+
+    </script>
+</body>
+</html>
