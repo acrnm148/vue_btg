@@ -1,6 +1,6 @@
 <template>
     <div class="container">
-		<h4 class="text-center mt-3">🎅🎄<strong>게시판</strong>🎅🎄</h4>
+		<h4 class="text-center mt-3">🎄🎅<strong>게시판</strong>🎅🎄</h4>
 
 		<div class="input-group mb-3  mt-3">
 			<input type="text" class="form-control"  v-model="searchWord" @keydown.enter="boardList"
