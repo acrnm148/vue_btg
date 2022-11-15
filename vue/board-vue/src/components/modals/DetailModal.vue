@@ -52,7 +52,16 @@
 
 <script>
 export default {
-    
+	//props : [],
+    data() {
+		return {
+			boardInfo : {},
+			fileList : [],
+		}
+	},
+	async boardDetail(row) {
+
+	}
 }
 </script>
 

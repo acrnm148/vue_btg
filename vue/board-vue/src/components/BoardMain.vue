@@ -19,7 +19,7 @@
 				</tr>
 			</thead>
 			<tbody>
-				<tr v-for="(row, index) in list" :key="index" @click="test(row.title)" style="cursor:pointer">
+				<tr v-for="(row, index) in list" :key="index" @click="test(row)" style="cursor:pointer">
 					<td>{{row.boardId}}</td>
 					<td>{{row.userName}}</td>
 					<td>{{row.title}}</td>
@@ -38,7 +38,8 @@
 						v-on:call-parent-move-page="movePage"
 						></pagination-u-i>
 
-		<button class="btn btn-success" type="button">글쓰기</button>
+		<button class="btn btn-success" type="button" @click="showInsertModal">글쓰기</button>
+		<insert-modal v-on:call-parent-insert="closeAfterInsert"></insert-modal>
 	</div>
 </template>
 
@@ -46,10 +47,13 @@
 import http from "@/common/axios.js" //axios객체
 import util from "@/common/util.js"
 import PaginationUI from "@/components/PaginationUI.vue"
+import InsertModal from '@/components/modals/InsertModal.vue' //vue 컴포넌트
+import {Modal} from "bootstrap"; //vue 컴포넌트에서 bootstrap modal 을 사용하기 위함.
 
 export default {
 	components: {
-		PaginationUI
+		PaginationUI,
+		InsertModal,
 	},
     data() {
         return {
@@ -57,16 +61,21 @@ export default {
             offset: 0,
             searchWord: '',
 			list: [],
+			//row
 
 			totalListItemCount:0,
 			listRowCount:10,
 			pageLinkCount:10,
-			currentPageIndex:1
+			currentPageIndex:1,
+
+			// modal
+			insertModal:null, //bootstrap Modal 객체를 할당(ui component를 전달)
         }
     },
     methods: {
-		test(title) {
+		test(title) { //row
 			alert(title);
+
 		},
         async boardList() {
             let params = {
@@ -97,10 +106,22 @@ export default {
 			this.offset = (pageIndex - 1) * this.listRowCount;
 			this.currentPageIndex = pageIndex;
 			this.boardList();
+		},
+		showInsertModal() {
+			this.insertModal.show();
+		},
+		closeAfterInsert() {
+			this.insertModal.hide();
+			this.boardList();
 		}
     },
 	created () {
 		this.boardList();
+	},
+	mounted() {
+		//모달 객체를 생성해서 data의 변수에 할당
+		this.insertModal = new Modal(document.querySelector("#insertModal"));
+
 	},
 	filters : {
 		makeDateStr(date, type) {
