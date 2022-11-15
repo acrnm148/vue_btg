@@ -1,6 +1,6 @@
 <template>
     <!-- Modal Detail-->
-	<div class="modal fade" id="boardDetailModal" tabindex="-1"
+	<div class="modal fade" id="detailModal" tabindex="-1"
 		aria-labelledby="exampleModalLabel" aria-hidden="true">
 		<div class="modal-dialog modal-lg">
 			<div class="modal-content">
@@ -14,37 +14,53 @@
 						<tbody>
 							<tr>
 								<td>글 번호</td>
-								<td id="boardIdDetail">#</td>
+								<td>{{board.boardId}}</td>
 							</tr>
 							<tr>
 								<td>제목</td>
-								<td id="titleDetail">#</td>
+								<td>{{board.title}}</td>
 							</tr>
 							<tr>
 								<td>내용</td>
-								<td id="contentDetail">#</td>
+								<td v-html="board.content"></td> <!-- {{board.boardId}} 로 쓰면 html 태그 다나옴 (CKEditor의 내용은 html 태그로 구성)-->
 							</tr>
 							<tr>
 								<td>작성자</td>
-								<td id="userNameDetail">#</td>
+								<td>{{board.userName}}</td>
 							</tr>
 							<tr>
 								<td>작성일시</td>
-								<td id="regDtDetail">#</td>
+								<td>{{board.regDate}} {{board.regTime}}</td>
 							</tr>
 							<tr>
 								<td>조회수</td>
-								<td id="readCountDetail">#</td>
+								<td>{{board.readCount}}</td>
+							</tr>
+
+							<!-- 첨부파일 -->
+							<tr><td colspan="2">첨부파일</td></tr>
+							<tr v-if="board.fileList.length > 0">
+								<td colspan="2">
+									<div v-for="(file, index) in board.fileList" :key="index">
+										<span class="fileName">{{file.fileName}}</span>
+										&nbsp;&nbsp;
+										<a type="button" class="btn btn-outline btn-success btn-xs" 
+											v-bind:href="file.fileUrl" v-bind:download="file.fileName"
+										>내려받기</a>
+									</div>
+								</td>
 							</tr>
 						</tbody>
 					</table>
-
-					<button id="btnBoardUpdateForm" type="button"
-						class="btn btn-sm btn-primary">수정</button>
-					<button id="btnBoardDeleteConfirm" type="button"
-						class="btn btn-sm btn-warning">삭제</button>
+					
 				</div>
 
+					<div class="modal-footer" v-show="board.sameUser">
+<button type="button" @click="changeToUpdate"
+						class="btn btn-sm btn-success">수정</button>
+					<button id="btnBoardDeleteConfirm" type="button" @click="changeToDelete"
+						class="btn btn-sm btn-warning">삭제</button>
+					</div>
 			</div>
 		</div>
 	</div>
@@ -52,15 +68,14 @@
 
 <script>
 export default {
-	//props : [],
-    data() {
-		return {
-			boardInfo : {},
-			fileList : [],
+	props: ['board'],
+	methods: {
+		changeToUpdate() {
+			this.$emit('call-parent-change-to-update');
+		},
+		changeToDelete() {
+			this.$emit('call-parent-change-to-delete');
 		}
-	},
-	async boardDetail(row) {
-
 	}
 }
 </script>
